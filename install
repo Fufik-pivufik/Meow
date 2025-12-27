@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# file for installation if you don't use CLS(my c++ project manager)
+# :3
+
+echo Compiling project!
+g++ ./src/main.cpp ./src/code/decoration.cpp ./src/code/file.cpp ./src/code/text.cpp -o meow
+
+echo Compilation done!
+echo Moving executable file to /bin/
+sudo mv ./meow /bin/
