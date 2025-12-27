@@ -10,7 +10,7 @@ cd Meow
 ```
 
 ## And now you have two ways!
-If you're using cls(c language support) then just use command build
+If you're using cls(c language support) then just use command build and add path tothis directory to PATH
 ```
 cls build
 ```
