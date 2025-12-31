@@ -59,7 +59,11 @@ std::vector<std::string> meow::text(std::vector<std::string> src)
     std::string res_line = "";
     for (size_t i = 0; i < line.length(); i++)
     {
-      res_line += line[i];
+      if (line[i] == '\t')
+        res_line += "    ";
+      else
+        res_line += line[i];
+
       if (res_line.length() == 60)
       {
         result.push_back("|\e[38;2;180;180;180m" + res_line + "\e[0m|");
