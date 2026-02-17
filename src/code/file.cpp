@@ -17,7 +17,7 @@ std::vector<std::string> meow::readfile(std::string path, size_t& lines,
     lines++;
     result.push_back(line);
     words += meow::count_words(line);
-    bytes += line.length();
+    bytes += line.length() + 1;
   }
 
   return result;
