@@ -15,6 +15,7 @@ std::string config_default = R"({
   "art-source": "", // only txt files with ASCII arts
 
   "filename": "190;255;210",
+  "filename-pos": "center", // left, center, right
   "lines":    "110;200;200",
   "words":    "200;200;110",
   "bytes":    "200;110;200",
@@ -55,6 +56,15 @@ namespace meow
 
       if (dconf["filename"] != nullptr)
         this->col_fname = dconf["filename"];
+
+      if (dconf["filename-pos"] == "center")
+        this->fname_pos = 0;
+      if (dconf["filename-pos"] == "left")
+        this->fname_pos = -1;
+      if (dconf["filename-pos"] == "right")
+        this->fname_pos = 1;
+      
+
       if (dconf["lines"] != nullptr)
         this->col_lines = dconf["lines"];
       if (dconf["words"] != nullptr)

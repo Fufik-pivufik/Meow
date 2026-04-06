@@ -74,11 +74,26 @@ std::array<std::string, 6> meow::head(std::string filename, size_t lines,
 
   std::array<std::string, 6> result;
   result[0] = "\e[38;2;" + conf.get_cbor() + "m" + corns[0] + conc(hb, wd) + corns[1] + creset;
-  result[1] = vb +
+  if (conf.get_fnpos() == 0)
+    result[1] = vb +
               conc(hs, (wd - 6 - filename.length()) / 2 + (wd - 6 - filename.length()) % 2) + 
               "File: \e[38;2;" + conf.get_cfn() + "m" + filename + creset +
               conc(hs, (wd - 7 - filename.length()) / 2 + (wd - 7 - filename.length()) % 2) 
               + vb;
+  if (conf.get_fnpos() == -1)
+    result[1] = vb +
+               + 
+              "File: \e[38;2;" + conf.get_cfn() + "m" + filename + creset +
+              conc(hs, wd - 6 - filename.length()) 
+              + vb;
+  if (conf.get_fnpos() == 1)
+    result[1] = vb +
+              conc(hs,wd - 6 - filename.length()) +
+              "File: \e[38;2;" + conf.get_cfn() + "m" + filename + creset +
+              vb;
+
+
+
   result[2] = vb + "\e[38;2;" + conf.get_cl() + "mLines: " + std::to_string(lines) + "\e[0m" +
               conc(' ', wd - 7 - kitten[0].length() - digits(lines)) + kcol + kitten[0] + creset + vb;
   result[3] = vb + "\e[38;2;" + conf.get_cw() + "mWords: " + std::to_string(words) +

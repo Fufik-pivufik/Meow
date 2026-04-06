@@ -14,6 +14,7 @@ namespace meow
     std::string col_borders;
     std::string col_text;
     std::string col_fname;
+    int fname_pos;
 
     std::string vert_border;
     std::string horz_border;
@@ -46,6 +47,7 @@ namespace meow
         art = true;
         art_col = "255;255;255";
         art_src = "";
+        fname_pos = 0;
       }
 
       std::string get_ca() const { return art_col; }
@@ -56,6 +58,7 @@ namespace meow
       std::string get_cbor() const { return col_borders; }
       std::string get_ct() const { return col_text; }
       std::string get_cfn() const { return col_fname; }
+      int get_fnpos() const {return fname_pos;}
       size_t get_width() const { return width; }
       std::string get_vb() const { return vert_border; }
       std::string get_hb() const { return horz_border; }
