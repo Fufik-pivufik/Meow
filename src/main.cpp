@@ -70,7 +70,7 @@ int main(int argc, char* argv[])
     try
     {
       std::vector<std::string> text = meow::readfile(file, lines, words, bytes, maxlen);
-      if (conf.is_autow() && maxlen > conf.get_width())
+      if (conf.is_autow() && maxlen > conf.get_width() && display)
         conf.set_width(maxlen);
 
       std::array<std::string, 6> parsed = meow::head(file, lines, words, bytes, conf);
