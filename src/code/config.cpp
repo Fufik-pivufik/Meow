@@ -16,6 +16,10 @@ std::string config_default = R"({
 
   "filename": "190;255;210",
   "filename-pos": "center", // left, center, right
+  "filename-prefix": "File:",
+  "filename-postfix": "",
+
+
   "lines":    "110;200;200",
   "words":    "200;200;110",
   "bytes":    "200;110;200",
@@ -56,7 +60,10 @@ namespace meow
 
       if (dconf["filename"] != nullptr)
         this->col_fname = dconf["filename"];
-
+      if (dconf["filename-prefix"] != nullptr)
+        this->fname_pref = dconf["filename-prefix"];
+      if (dconf["filename-postfix"] != nullptr)
+        this->fname_post = dconf["filename-postfix"];
       if (dconf["filename-pos"] == "center")
         this->fname_pos = 0;
       if (dconf["filename-pos"] == "left")

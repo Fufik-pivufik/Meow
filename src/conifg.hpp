@@ -15,6 +15,8 @@ namespace meow
     std::string col_text;
     std::string col_fname;
     int fname_pos;
+    std::string fname_pref;
+    std::string fname_post;
 
     std::string vert_border;
     std::string horz_border;
@@ -48,23 +50,32 @@ namespace meow
         art_col = "255;255;255";
         art_src = "";
         fname_pos = 0;
+        fname_pref = "File:";
+        fname_post = "";
       }
 
       std::string get_ca() const { return art_col; }
       std::string get_as() const { return art_src; }
+      bool is_art() const {return art;}
+
       std::string get_cl() const  { return col_lines; }
       std::string get_cb() const  { return col_bytes; }
       std::string get_cw() const { return col_words; }
       std::string get_cbor() const { return col_borders; }
       std::string get_ct() const { return col_text; }
+
       std::string get_cfn() const { return col_fname; }
+      std::string get_fnpref() const { return fname_pref; }
+      std::string get_fnpost() const { return fname_post; }
       int get_fnpos() const {return fname_pos;}
+      
       size_t get_width() const { return width; }
+
       std::string get_vb() const { return vert_border; }
       std::string get_hb() const { return horz_border; }
       std::string get_hs() const { return horz_separator; }
       std::array<std::string, 4> get_corns() const { return corners; }
-      bool is_art() const {return art;}
+    
 
 
       void read_conf();

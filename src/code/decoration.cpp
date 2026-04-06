@@ -57,7 +57,9 @@ std::array<std::string, 6> meow::head(std::string filename, size_t lines,
                                       size_t words, size_t bytes, Config& conf)
 {
   size_t wd = conf.get_width();
-
+  std::string fpref = conf.get_fnpref();
+  std::string fpost = conf.get_fnpost();
+  
   if (!conf.is_art())
     kitten = {"", "", ""};
 
@@ -76,20 +78,19 @@ std::array<std::string, 6> meow::head(std::string filename, size_t lines,
   result[0] = "\e[38;2;" + conf.get_cbor() + "m" + corns[0] + conc(hb, wd) + corns[1] + creset;
   if (conf.get_fnpos() == 0)
     result[1] = vb +
-              conc(hs, (wd - 6 - filename.length()) / 2 + (wd - 6 - filename.length()) % 2) + 
-              "File: \e[38;2;" + conf.get_cfn() + "m" + filename + creset +
-              conc(hs, (wd - 7 - filename.length()) / 2 + (wd - 7 - filename.length()) % 2) 
+              conc(hs, (wd - filename.length() - fpref.length() - fpost.length()) / 2 + (wd - filename.length() - fpref.length() - fpost.length()) % 2) + 
+              + "\e[38;2;"+ conf.get_cfn() + "m" + fpref + filename + fpost + creset +
+              conc(hs, (wd - 1 - filename.length() - fpref.length() - fpost.length()) / 2 + (wd - 1 - filename.length() - fpref.length() - fpost.length()) % 2) 
               + vb;
   if (conf.get_fnpos() == -1)
     result[1] = vb +
-               + 
-              "File: \e[38;2;" + conf.get_cfn() + "m" + filename + creset +
-              conc(hs, wd - 6 - filename.length()) 
+               + "\e[38;2;" + conf.get_cfn() + "m" + fpref + filename + fpost + creset +
+              conc(hs, wd - filename.length() - fpref.length() - fpost.length()) 
               + vb;
   if (conf.get_fnpos() == 1)
     result[1] = vb +
-              conc(hs,wd - 6 - filename.length()) +
-              "File: \e[38;2;" + conf.get_cfn() + "m" + filename + creset +
+              conc(hs,wd - filename.length() - fpref.length() - fpost.length()) +
+              + "\e[38;2;" + conf.get_cfn() + "m" + fpref + filename + fpost + creset +
               vb;
 
 
