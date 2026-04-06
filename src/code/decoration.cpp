@@ -32,6 +32,8 @@ std::string conc(const std::string& src, size_t times)
 size_t digits(size_t num)
 {
   size_t result = 0;
+  if (num == 0)
+    return 1;
   while (num > 0)
   {
     result++;
