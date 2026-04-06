@@ -4,9 +4,9 @@
 #include <string>
 
 std::array<std::string, 3> meow::kitten = {
-    "  |\\__/,|   (`\\   ",
-    "_.|o o  |_   ) )  ",
-    "-(((---(((--------",
+    "|   |\\__/,|   (`\\   ",
+    "| _.|o o  |_   ) )  ",
+    "|--(((---(((--------",
 };
 
 std::string creset = "\e[0m";
