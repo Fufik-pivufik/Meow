@@ -11,11 +11,10 @@ std::string config_default = R"({
   "art":      true,
   "art-color": "255;255;255",
   
-  // art must have height of 3
-  "art-source": "", // only txt files with ASCII arts
+  "art-source": "", 
 
   "filename": "190;255;210",
-  "filename-pos": "center", // left, center, right
+  "filename-pos": "center", 
   "filename-prefix": "File:",
   "filename-postfix": "",
 
@@ -27,12 +26,10 @@ std::string config_default = R"({
   "borders":  "255;255;255",
   "width":    60,
 
-  //borders
   "horizontal": "_",
   "vertical":   "|",
   "separator":  "-",
 
-  //corners
   "top-left":  " ",
   "top-right": " ",
   "bot-right": "|",
