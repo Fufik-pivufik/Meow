@@ -1,1 +1,10 @@
-{"name":"meow","main-file":"main.cpp","compiler":"g++","c++ standart":"c++20","path":"/home/mitra/Desktop/Programming/Projects/meow","test-path":""}
+{
+  "name": "meow",
+  "main-file": "main.cpp",
+  "compiler": "g++",
+  "c++ standart": "c++20",
+  "path": "/home/monarch/git-utils/Meow",
+  "flags": null,
+  "extends": null,
+  "test-path": "/home/monarch/git-utils/Meow/test/test.cpp"
+}

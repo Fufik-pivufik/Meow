@@ -24,7 +24,9 @@ std::string config_default = R"({
   "bytes":    "200;110;200",
   "text":     "180;180;180",
   "borders":  "255;255;255",
+  
   "width":    60,
+  "auto-width": true,
 
   "horizontal": "_",
   "vertical":   "|",
@@ -81,6 +83,8 @@ namespace meow
         this->col_borders = dconf["borders"];
       if (dconf["width"] != nullptr)
         this->width = dconf["width"];
+      if (dconf["auto-width"] != nullptr)
+        this->auto_width = dconf["auto-width"];
 
       if (dconf["horizontal"] != nullptr)
         this->horz_border = dconf["horizontal"];

@@ -30,6 +30,7 @@ namespace meow
 
 
     size_t width;
+    bool auto_width;
     
 
     public:
@@ -45,13 +46,14 @@ namespace meow
         horz_border = "_";
         horz_separator = "-";
         corners = { " ", " ", "|", "|" };
+        art = true; 
         width = 60;
-        art = true;
         art_col = "255;255;255";
         art_src = "";
         fname_pos = 0;
         fname_pref = "File:";
         fname_post = "";
+        auto_width = true;
       }
 
       std::string get_ca() const { return art_col; }
@@ -70,11 +72,14 @@ namespace meow
       int get_fnpos() const {return fname_pos;}
       
       size_t get_width() const { return width; }
+      bool is_autow() const { return auto_width; }
 
       std::string get_vb() const { return vert_border; }
       std::string get_hb() const { return horz_border; }
       std::string get_hs() const { return horz_separator; }
       std::array<std::string, 4> get_corns() const { return corners; }
+
+      void set_width(size_t x) { this->width = x; }
     
 
 

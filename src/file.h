@@ -6,5 +6,5 @@
 namespace meow
 {
 std::vector<std::string> readfile(std::string path, size_t& line, size_t& words,
-                                  size_t& bytes);
+                                  size_t& bytes, size_t& maxlen);
 };

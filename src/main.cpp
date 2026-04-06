@@ -66,10 +66,13 @@ int main(int argc, char* argv[])
 
   for (std::string file : files)
   {
-    size_t words, lines, bytes;
+    size_t words, lines, bytes, maxlen;
     try
     {
-      std::vector<std::string> text = meow::readfile(file, lines, words, bytes);
+      std::vector<std::string> text = meow::readfile(file, lines, words, bytes, maxlen);
+      if (conf.is_autow() && maxlen > conf.get_width())
+        conf.set_width(maxlen);
+
       std::array<std::string, 6> parsed = meow::head(file, lines, words, bytes, conf);
       for (int i = 0; i < 6 - int(display); i++)
         std::cout << parsed[i] << std::endl;
