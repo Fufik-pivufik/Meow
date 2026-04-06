@@ -10,7 +10,7 @@ namespace meow
 
 extern std::array<std::string, 3> kitten;
 
-std::array<std::string, 5> head(std::string filename, size_t lines,
+std::array<std::string, 6> head(std::string filename, size_t lines,
                                 size_t words, size_t bytes, Config& conf);
 
 std::vector<std::string> text(std::vector<std::string>, Config& conf);

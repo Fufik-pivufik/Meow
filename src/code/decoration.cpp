@@ -4,13 +4,23 @@
 #include <string>
 
 std::array<std::string, 3> meow::kitten = {
-    "  |\\__/,|   (`\\   |",
-    "_.|o o  |_   ) )  |",
-    "-(((---(((--------|",
-
+    "  |\\__/,|   (`\\   ",
+    "_.|o o  |_   ) )  ",
+    "-(((---(((--------",
 };
 
+std::string creset = "\e[0m";
+
 std::string conc(const char& src, size_t times)
+{
+  std::string result = "";
+  for (size_t i = 0; i < times; i++)
+    result += src;
+
+  return result;
+}
+
+std::string conc(const std::string& src, size_t times)
 {
   std::string result = "";
   for (size_t i = 0; i < times; i++)
@@ -31,22 +41,54 @@ size_t digits(size_t num)
   return result;
 }
 
-std::array<std::string, 5> meow::head(std::string filename, size_t lines,
+std::array<std::string, 3> get_art(std::string path) {
+  std::ifstream sfile(path);
+  std::array<std::string, 3> result;
+  if (sfile.is_open()) {
+    for (int i = 0; i < 3; i++)
+      std::getline(sfile, result[i]);
+  }
+
+  return result;
+}
+
+
+std::array<std::string, 6> meow::head(std::string filename, size_t lines,
                                       size_t words, size_t bytes, Config& conf)
 {
   size_t wd = conf.get_width();
-  std::array<std::string, 5> result;
-  result[0] = " " + conc('_', wd) + " ";
-  result[1] = "|_File:_\e[38;2;" + conf.get_cfn() + "m" + filename + "\e[0m" +
-              conc('_', wd - 7 - filename.length()) + "|";
-  result[2] = "|\e[38;2;" + conf.get_cl() + "mLines: " + std::to_string(lines) + "\e[0m" +
-              conc(' ', wd - 6 - kitten[0].length() - digits(lines)) + kitten[0];
-  result[3] = "|\e[38;2;" + conf.get_cw() + "mWords: " + std::to_string(words) +
-              +"\e[0m" + conc(' ', wd - 6 - kitten[1].length() - digits(words)) +
-              kitten[1];
-  result[4] = "|\e[38;2;" + conf.get_cb() + "mBytes: " + std::to_string(bytes) +
-              +"\e[0m" + conc('-', wd - 6 - kitten[2].length() - digits(bytes)) +
-              kitten[2];
+
+  if (!conf.is_art())
+    kitten = {"", "", ""};
+
+  if (conf.get_as() != "")
+    kitten = get_art(conf.get_as());
+  std::string kcol = "\e[38;2;" + conf.get_ca() + "m";
+
+
+  std::array<std::string, 4> corns = conf.get_corns(); 
+  std::string hb = conf.get_hb();
+  std::string hs = "\e[38;2;" + conf.get_cbor() + "m" + conf.get_hs() + creset;
+  std::string vb = "\e[38;2;" + conf.get_cbor() + "m" + conf.get_vb() + creset;
+
+
+  std::array<std::string, 6> result;
+  result[0] = "\e[38;2;" + conf.get_cbor() + "m" + corns[0] + conc(hb, wd) + corns[1] + creset;
+  result[1] = vb +
+              conc(hs, (wd - 6 - filename.length()) / 2 + (wd - 6 - filename.length()) % 2) + 
+              "File: \e[38;2;" + conf.get_cfn() + "m" + filename + creset +
+              conc(hs, (wd - 7 - filename.length()) / 2 + (wd - 7 - filename.length()) % 2) 
+              + vb;
+  result[2] = vb + "\e[38;2;" + conf.get_cl() + "mLines: " + std::to_string(lines) + "\e[0m" +
+              conc(' ', wd - 7 - kitten[0].length() - digits(lines)) + kcol + kitten[0] + creset + vb;
+  result[3] = vb + "\e[38;2;" + conf.get_cw() + "mWords: " + std::to_string(words) +
+              creset + conc(' ', wd - 7 - kitten[1].length() - digits(words)) + kcol +
+              kitten[1] + creset + vb;
+  result[4] = vb + "\e[38;2;" + conf.get_cb() + "mBytes: " + std::to_string(bytes) +
+              creset + conc(" ", wd - 7 - kitten[2].length() - digits(bytes)) + kcol +
+              kitten[2] + creset + vb;
+
+  result[5] = "\e[38;2;" + conf.get_cbor() + "m" + corns[3] + conc(hb, wd) + corns[2] + creset;
 
   return result;
 }
@@ -54,10 +96,15 @@ std::array<std::string, 5> meow::head(std::string filename, size_t lines,
 std::vector<std::string> meow::text(std::vector<std::string> src, Config& conf)
 {
   size_t wd = conf.get_width();
+  std::array<std::string, 4> corns = conf.get_corns(); 
+  std::string hb = conf.get_hb();
+  std::string hs = "\e[38;2;" + conf.get_cbor() + "m" + conf.get_hs() + creset;
+  std::string vb = "\e[38;2;" + conf.get_cbor() + "m" + conf.get_vb() + creset;
+
   std::string ct = conf.get_ct();
   std::vector<std::string> result;
 
-  result.push_back("|" + conc('=', wd) + "|");
+  result.push_back(vb + conc(hs, wd) + vb);
   for (std::string line : src)
   {
     std::string res_line = "";
@@ -70,14 +117,14 @@ std::vector<std::string> meow::text(std::vector<std::string> src, Config& conf)
 
       if (res_line.length() == wd)
       {
-        result.push_back("|\e[38;2;" + ct + "m" + res_line + "\e[0m|");
+        result.push_back(vb + "\e[38;2;" + ct + "m" + res_line + creset + vb);
         res_line = "";
       }
     }
-    res_line += conc(' ', wd - res_line.length()) + "\e[0m|";
-    result.push_back("|\e[38;2;" + ct + "m" + res_line);
+    res_line += conc(' ', wd - res_line.length()) + creset + vb;
+    result.push_back(vb + "\e[38;2;" + ct + "m" + res_line);
   }
-  result.push_back("|" + conc('_', wd) + "|");
+  result.push_back("\e[38;2;" + conf.get_cbor() + "m" + corns[3] + conc(hb, wd) + corns[2] + creset);
   return result;
 }
 
