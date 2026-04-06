@@ -3,11 +3,14 @@
 
 #include "decorations.h"
 #include "file.h"
+#include "conifg.hpp"
 #include "text.h"
 
 int main(int argc, char* argv[])
 {
   bool display = 0;
+  meow::Config conf = meow::Config();
+  conf.read_conf();
 
   std::vector<char> keys;
   std::vector<std::string> files;
@@ -67,13 +70,13 @@ int main(int argc, char* argv[])
     try
     {
       std::vector<std::string> text = meow::readfile(file, lines, words, bytes);
-      std::array<std::string, 5> parsed = meow::head(file, lines, words, bytes);
+      std::array<std::string, 5> parsed = meow::head(file, lines, words, bytes, conf);
       for (int i = 0; i < 5; i++)
         std::cout << parsed[i] << std::endl;
 
       if (display)
       {
-        std::vector<std::string> src = meow::text(text);
+        std::vector<std::string> src = meow::text(text, conf);
         for (std::string line : src)
           std::cout << line << std::endl;
       }
