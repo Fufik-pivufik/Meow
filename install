@@ -4,7 +4,7 @@
 # :3
 
 echo Compiling project!
-g++ ./src/main.cpp ./src/code/decoration.cpp ./src/code/file.cpp ./src/code/text.cpp -o meow
+g++ ./src/main.cpp ./src/code/decoration.cpp ./src/code/file.cpp ./src/code/text.cpp ./src/code/config.cpp -o meow
 
 echo Compilation done!
 echo Moving executable file to /bin/
